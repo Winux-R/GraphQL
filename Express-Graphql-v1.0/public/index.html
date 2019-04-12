@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="getData()">获取数据</button>
+    <script>
+        function getData() {
+          const query = `
+            query ($username: String) {
+                account(username: $username) {
+                    name
+                    age
+                    sex
+                }
+            }
+          `;
+          const a = {
+            username: '李四'
+          };
+          fetch('/graphql', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              query,
+              a
+            })
+          }).then(data => {
+            console.log(data);
+          })
+        }
+    </script>
+</body>
+</html>
